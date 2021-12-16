@@ -53,6 +53,8 @@ module.exports = {
     } = body;
     // image list 추출
     const imageList = extractImageSrcS3(contentEditor);
+
+    console.log(imageList);
     // 비교 후 이동
     await copyImagesS3(imageList);
 
@@ -154,6 +156,8 @@ module.exports = {
 
       // 새로 올라온 html에서 이미지 src 추출 후 파일 이동
       const imageList = extractImageSrcS3(contentEditor);
+      console.log(imageList);
+
       await copyImagesS3(imageList);
       // 수정 본문 이미지 처리가 안되어있음.
       //새로 올라온 데이터가 있을 때만 데이터 바꾸기
@@ -170,15 +174,15 @@ module.exports = {
       logger.info(`PUT /api/posts/${postId} 204 res:${message}`);
       res.status(204).send({ message });
       //성공하면 기존 본문 이미지들 삭제
-      if (prevImageList.length !== 0) {
-        prevImageList.forEach(async (src) => {
-          await removeObjS3(src);
-        });
-      }
+      // if (prevImageList.length !== 0) {
+      //   prevImageList.forEach(async (src) => {
+      //     await removeObjS3(src);
+      //   });
+      // }
       // 커버 이미지 삭제 -> Null이 아닐 때에만 삭제 :
       // 새로 이미지가 올라올 때에만 삭제
-      if (originPath) await removeObjS3(prevCoverOriginal);
-      await removeObjS3(prevCoverCropped);
+      // if (originPath) await removeObjS3(prevCoverOriginal);
+      // await removeObjS3(prevCoverCropped);
       return;
     } catch (error) {
       console.log(error);
@@ -189,8 +193,8 @@ module.exports = {
       await post.update(backup);
       await post.save();
 
-      await removeObjS3(originPath);
-      await removeObjS3(croppedPath);
+      // await removeObjS3(originPath);
+      // await removeObjS3(croppedPath);
       message = "DB 업데이트 실패";
       logger.error(`PUT /api/posts/${postId} 204 res:${message}`);
       return res.status(500).send({ message });
