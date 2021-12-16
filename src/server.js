@@ -98,11 +98,11 @@ const histogram = new client.Histogram({
 });
 
 app.get("/", (req, res) => {
-  var start = new Date();
-  var simulateTime = 1000;
+  const start = new Date();
+  const simulateTime = 1000;
 
   setTimeout(() => {
-    var end = new Date() - start;
+    const end = new Date() - start;
     histogram.observe(end / 1000);
   }, simulateTime);
   counter.inc();
