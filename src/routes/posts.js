@@ -16,17 +16,6 @@ const { logInOnly, logInBoth } = require("../middlewares/passport-auth");
 const postingLikeCtrl = require("../controllers/likes-ctrl/postsLikeControl");
 const upload = require("../middlewares/upload");
 
-/* GET users listing. */
-// postsRouter
-//   .route("/posts")
-//   .get(logInBoth, filter, getPosts)
-//   .post(logInOnly, uploadCover.single("imageCover"), postPosts);
-
-// ckEditor5 custom image upload adapter
-// postsRouter
-//   .route("/posts/ckUpload")
-//   .post(logInOnly, uploadTemp.single("temp"), ckUpload);
-
 postsRouter
   .route("/posts")
   .get(logInBoth, filter, getPosts)

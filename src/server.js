@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
 const { sequelize } = require("./models");
-require("dotenv").config();
 const passport = require("passport");
 const passportConfig = require("./passport");
 const userRouter = require("./routes/users");
@@ -14,15 +14,9 @@ const userInfoRouter = require("./routes/userInfo");
 const bookmarkRouter = require("./routes/bookmark");
 const likeCommentRouter = require("./routes/commentsLike");
 const childCommentRouter = require("./routes/childComments");
-
 const { stream } = require("./config/logger");
-
-//swagger
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output");
-
-// 테스트용
-// const authMiddleware = require("./middlewares/auth");
 
 sequelize
   .sync({ force: false })
@@ -50,12 +44,10 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(
   morgan(
     `HTTP/:http-version :method :remote-addr [:url] :remote-user (:status) [:res[content-length]] [:referrer // :user-agent] [:response-time ms] `
-    // { stream }
   )
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use("/public", express.static("public"));
 
 //swagger
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
