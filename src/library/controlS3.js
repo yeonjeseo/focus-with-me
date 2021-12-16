@@ -33,7 +33,6 @@ const copyImagesS3 = async (imageList) => {
      */
     for (const url of imageList) {
       const filename = url.split("temp/")[1];
-      console.log(filename);
       await s3
         .copyObject({
           Bucket: process.env.S3_BUCKET_NAME,

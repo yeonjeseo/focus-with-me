@@ -1,19 +1,27 @@
 // require() 는 JS 라이브러리/파일이다
 const express = require("express");
-const router = express.Router();
+const commentsRouter = express.Router();
 const {
   postComments,
   getComments,
   deleteComments,
 } = require("../controllers/commentsController");
+
+const {
+  postCmtsLikes,
+  deleteCmtsLikes,
+} = require("../controllers/likes-ctrl/cmtsLikeController");
 const { logInOnly, logInBoth } = require("../middlewares/passport-auth");
 
-// 댓글 생성 라우터
-router.post("/posts/:postId/comments", logInOnly, postComments);
-// 댓글 조회 라우터
-router.get("/posts/:postId/comments", logInBoth, getComments);
+commentsRouter
+  .route("/posts/:postId/comments")
+  .post(logInOnly, postComments)
+  .get(logInBoth, getComments)
+  .delete(logInOnly, deleteComments);
 
-// 댓글 삭제 라우터
-router.delete("/posts/:postId/comments/:commentId", logInOnly, deleteComments);
+commentsRouter
+  .route("/posts/:postId/comments/:commentId/like")
+  .post(logInOnly, postCmtsLikes)
+  .delete(logInOnly, deleteCmtsLikes);
 
-module.exports = router;
+module.exports = commentsRouter;

@@ -12,7 +12,6 @@ const cmtRouter = require("./routes/comments");
 const followRouter = require("./routes/follow");
 const userInfoRouter = require("./routes/userInfo");
 const bookmarkRouter = require("./routes/bookmark");
-const likeCommentRouter = require("./routes/commentsLike");
 const childCommentRouter = require("./routes/childComments");
 const { stream } = require("./config/logger");
 const swaggerUi = require("swagger-ui-express");
@@ -79,7 +78,6 @@ app.use("/api", postsRouter);
 app.use("/api", followRouter);
 app.use("/api", userInfoRouter);
 app.use("/api", bookmarkRouter);
-app.use("/api", likeCommentRouter);
 app.use("/api", childCommentRouter);
 
 // metrics
