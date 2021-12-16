@@ -4,8 +4,8 @@ const {
   User,
   CommentLike,
   ChildComment,
-} = require("../../models");
-const { logger } = require("../../config/logger");
+} = require("../models");
+const { logger } = require("../config/logger");
 
 const postComments = async (req, res) => {
   try {
