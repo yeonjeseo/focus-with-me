@@ -13,6 +13,7 @@ const { uploadTempS3, uploadCoverS3 } = require("../middlewares/upload");
 
 const { filter } = require("../middlewares/filter");
 const { logInOnly, logInBoth } = require("../middlewares/passport-auth");
+const postingLikeCtrl = require("../controllers/likes-ctrl/postsLikeControl");
 const upload = require("../middlewares/upload");
 
 /* GET users listing. */
@@ -59,5 +60,10 @@ postsRouter
 postsRouter
   .route("/posts/:postId/coverOriginal")
   .get(logInOnly, getCoverOriginal);
-//z
+
+postsRouter
+  .route("/posts/:postId/like")
+  .post(logInOnly, postingLikeCtrl.postLikes)
+  .delete(logInOnly, postingLikeCtrl.deleteLikes);
+
 module.exports = postsRouter;
